@@ -45,11 +45,14 @@ let observable = Observable<String>.create { observer in
 
 
 
-
-
-
-
-
-
-
-
+/// infallible Event에는 next, completed만 방출하는 Observable
+/// error가 발생하지 않음을 컴파일 타임에서 보장
+let infallible = Infallible<String>.create { observer in
+    
+    //observer.onNext("Hello")
+    observer(.next("Hello"))
+    
+    observer(.completed)
+    
+    return Disposables.create()
+}
