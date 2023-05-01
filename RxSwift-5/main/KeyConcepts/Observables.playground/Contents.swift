@@ -26,17 +26,18 @@ import RxSwift
 /*:
  # Observables
  */
+/// Observable 생성하기
+
+// #1 : create()메서드 사용
+Observable<Int>.create { (observer) -> Disposable in
+    observer.on(.next(0))
+    observer.onNext(1)
+    
+    observer.onCompleted()
+    
+    return Disposables.create()
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// #2 : from()메서드 사용 : 매개변수를 배열로 전달받고, 해당 배열의 값을 순서대로 방출 -> 모든 요소를 방출하면 Completed
+Observable.from([0, 1])
