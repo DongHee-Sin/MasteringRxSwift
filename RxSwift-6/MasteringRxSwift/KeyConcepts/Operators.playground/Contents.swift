@@ -32,19 +32,12 @@ import RxSwift
 let bag = DisposeBag()
 
 Observable.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    .take(5)
+    .filter { $0.isMultiple(of: 2) }
     .subscribe { print($0) }
     .disposed(by: bag)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/// Operators :
+/// Observable에서 호출하고, Observable을 return하는 메서드
+/// 호출 순서에 주의가 필요
