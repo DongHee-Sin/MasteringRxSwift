@@ -35,6 +35,24 @@ enum MyError: Error {
 }
 
 
+/// AsyncSubject는 completed이벤트를 전달받기 전까지 Observer로 이벤트를 전달하지 않음
+/// completed를 전달받으면 가장 마지막에 전달받은 next이벤트를 Observer로 방출
 
 
+let asyncSubject = AsyncSubject<Int>()
 
+asyncSubject
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+asyncSubject.onNext(1)
+asyncSubject.onNext(2)
+asyncSubject.onNext(3)
+
+
+/// complete를 전달받으면 가장 마지막의 next이벤트를 전달하고 completed이벤트를 전달
+//asyncSubject.onCompleted()
+
+
+/// error를 전달받으면 error이벤트만 Observer로 전달한 후, 종료
+asyncSubject.onError(MyError.error)
