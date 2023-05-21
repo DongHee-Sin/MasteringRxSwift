@@ -27,9 +27,44 @@ import RxSwift
 /*:
  # just
  */
+//final private class Just<Element>: Producer<Element> {
+//    private let element: Element
+//
+//    init(element: Element) {
+//        self.element = element
+//    }
+//
+//    override func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Element {
+//        observer.on(.next(self.element))
+//        observer.on(.completed)
+//        return Disposables.create()
+//    }
+//}
+
 
 let disposeBag = DisposeBag()
 let element = "😀"
 
 
 
+/// 매개변수로 전달된 값을 사용하여 next이벤트 방출 후, 바로 completed
+/// 1개의 Element를 next로 방출하는 목적으로 사용
+
+Observable.just(element)
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: disposeBag)
+
+//next(😀)
+//completed
+
+
+Observable.just([1, 2, 3])
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: disposeBag)
+
+//next([1, 2, 3])   => 배열 자체를 next 이벤트로 방출
+//completed
