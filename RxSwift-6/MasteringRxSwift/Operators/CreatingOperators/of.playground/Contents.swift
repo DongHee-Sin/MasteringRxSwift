@@ -28,15 +28,55 @@ import RxSwift
  # of
  */
 
+// Of (ObservableSequence)
+
+//final private class ObservableSequence<Sequence: Swift.Sequence>: Producer<Sequence.Element> {
+//    fileprivate let elements: Sequence
+//    fileprivate let scheduler: ImmediateSchedulerType
+//
+//    init(elements: Sequence, scheduler: ImmediateSchedulerType) {
+//        self.elements = elements
+//        self.scheduler = scheduler
+//    }
+//
+//    override func run<Observer: ObserverType>(_ observer: Observer, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where Observer.Element == Element {
+//        let sink = ObservableSequenceSink(parent: self, observer: observer, cancel: cancel)
+//        let subscription = sink.run()
+//        return (sink: sink, subscription: subscription)
+//    }
+//}
+
+
 let disposeBag = DisposeBag()
 let apple = "🍏"
 let orange = "🍊"
 let kiwi = "🥝"
 
 
+/// 가변 매개변수를 전달받아서 각 Element를 next이벤트로 방출한 후, completed
+/// n개의 Element를 next로 방출하는 목적으로 사용
+
+
+Observable.of(apple, orange, kiwi)
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: disposeBag)
+
+//next(🍏)
+//next(🍊)
+//next(🥝)
+//completed
 
 
 
+Observable.of([1, 2], [3, 4], [5, 6])
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: disposeBag)
 
-
-
+//next([1, 2])
+//next([3, 4])
+//next([5, 6])
+//completed
