@@ -32,11 +32,11 @@ let disposeBag = DisposeBag()
 let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
 
+/// 매개변수로 배열을 전달받고 내부 요소를 1개씩 next로 방출 후, completed
 
-
-
-
-
-
-
+Observable.from(fruits)
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: disposeBag)
 
